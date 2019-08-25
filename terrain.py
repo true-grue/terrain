@@ -17,9 +17,9 @@ def to_ppm(array, width, height):
 
 def load_data():
     with gzip.GzipFile("c1w.json.gz", "rb") as f:
-        colors = json.loads(f.read())
+        colors = json.loads(f.read().decode())
     with gzip.GzipFile("d1.json.gz", "rb") as f:
-        heights = json.loads(f.read())
+        heights = json.loads(f.read().decode())
     return colors, heights
 
 
