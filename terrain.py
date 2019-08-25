@@ -40,8 +40,7 @@ class Terrain:
     def draw_vline(self, x, y1, y2, color):
         r, g, b = color
         y1 = max(int(y1), 0)
-        y2 = min(int(y2), SCREEN_WIDTH)
-        for y in range(y1, y2):
+        for y in range(y1, int(y2)):
             offs = y * (SCREEN_WIDTH * 3) + x * 3
             self.screen[offs] = r
             self.screen[offs + 1] = g
