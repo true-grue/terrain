@@ -41,7 +41,7 @@ class Terrain:
         r, g, b = color
         y1 = max(int(y1), 0)
         for y in range(y1, int(y2)):
-            offs = y * (SCREEN_WIDTH * 3) + x * 3
+            offs = 3 * (y * SCREEN_WIDTH + x)
             self.screen[offs] = r
             self.screen[offs + 1] = g
             self.screen[offs + 2] = b
