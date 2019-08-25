@@ -1,4 +1,4 @@
-# A simple Python port of https://github.com/s-macke/VoxelSpace by Sebastian Macke
+# A simple Python port of VoxelSpace by Sebastian Macke
 # Autor: Peter Sovietov
 
 import json
@@ -23,6 +23,18 @@ def load_data():
     return colors, heights
 
 
+def draw_vline(screen, x, y1, y2, color):
+    r, g, b = color
+    y1 = max(int(y1), 0)
+    y2 = min(int(y2), SCREEN_HEIGHT)
+    y1 = 3 * (y1 * SCREEN_WIDTH + x)
+    y2 = 3 * (y2 * SCREEN_WIDTH + x)
+    for y in range(y1, y2, 3 * SCREEN_WIDTH):
+        screen[y] = r
+        screen[y + 1] = g
+        screen[y + 2] = b
+
+
 class Terrain:
     def __init__(self):
         self.player_x = 0
@@ -37,19 +49,8 @@ class Terrain:
         self.screen = self.background[:]
         self.ybuffer = [SCREEN_HEIGHT for i in range(SCREEN_WIDTH)]
 
-    def draw_vline(self, x, y1, y2, color):
-        r, g, b = color
-        y1 = max(int(y1), 0)
-        y1 = 3 * (y1 * SCREEN_WIDTH + x)
-        y2 = 3 * (y2 * SCREEN_WIDTH + x)
-        screen = self.screen
-        for y in range(y1, y2, 3 * SCREEN_WIDTH):
-            screen[y] = r
-            screen[y + 1] = g
-            screen[y + 2] = b
-
     def render(self):
-        ybuffer = self.ybuffer[:]
+        ybuf = self.ybuffer[:]
         z = 1
         dz = 1
         while int(z) < self.distance:
@@ -63,9 +64,9 @@ class Terrain:
             for i in range(SCREEN_WIDTH):
                 offs = offs_y + int(left_x) % 1024
                 h = int(self.heights[offs] * scale) + self.horizon
-                if h < ybuffer[i]:
-                    self.draw_vline(i, h, ybuffer[i], self.colors[offs])
-                    ybuffer[i] = h
+                if h < ybuf[i]:
+                    draw_vline(self.screen, i, h, ybuf[i], self.colors[offs])
+                    ybuf[i] = h
                 left_x += dx
             z += dz
             dz += 0.02
