@@ -25,10 +25,8 @@ def load_data():
 
 def draw_vline(screen, x, y1, y2, color):
     r, g, b = color
-    y1 = max(int(y1), 0)
-    y2 = min(int(y2), SCREEN_HEIGHT)
-    y1 = 3 * (y1 * SCREEN_WIDTH + x)
-    y2 = 3 * (y2 * SCREEN_WIDTH + x)
+    y1 = 3 * (max(y1, 0) * SCREEN_WIDTH + x)
+    y2 = 3 * (min(y2, SCREEN_HEIGHT) * SCREEN_WIDTH + x)
     for y in range(y1, y2, 3 * SCREEN_WIDTH):
         screen[y] = r
         screen[y + 1] = g
