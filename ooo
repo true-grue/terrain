@@ -1,0 +1,70 @@
+ 42           0 LOAD_FAST                4 (color)
+              2 UNPACK_SEQUENCE          3
+              4 STORE_FAST               5 (r)
+              6 STORE_FAST               6 (g)
+              8 STORE_FAST               7 (b)
+
+ 43          10 LOAD_GLOBAL              0 (max)
+             12 LOAD_GLOBAL              1 (int)
+             14 LOAD_FAST                2 (y1)
+             16 CALL_FUNCTION            1
+             18 LOAD_CONST               1 (0)
+             20 CALL_FUNCTION            2
+             22 STORE_FAST               2 (y1)
+
+ 44          24 LOAD_CONST               2 (3)
+             26 LOAD_FAST                2 (y1)
+             28 LOAD_GLOBAL              2 (SCREEN_WIDTH)
+             30 BINARY_MULTIPLY
+             32 LOAD_FAST                1 (x)
+             34 BINARY_ADD
+             36 BINARY_MULTIPLY
+             38 STORE_FAST               2 (y1)
+
+ 45          40 LOAD_CONST               2 (3)
+             42 LOAD_FAST                3 (y2)
+             44 LOAD_GLOBAL              2 (SCREEN_WIDTH)
+             46 BINARY_MULTIPLY
+             48 LOAD_FAST                1 (x)
+             50 BINARY_ADD
+             52 BINARY_MULTIPLY
+             54 STORE_FAST               3 (y2)
+
+ 46          56 SETUP_LOOP              62 (to 120)
+             58 LOAD_GLOBAL              3 (range)
+             60 LOAD_FAST                2 (y1)
+             62 LOAD_FAST                3 (y2)
+             64 LOAD_CONST               2 (3)
+             66 LOAD_GLOBAL              2 (SCREEN_WIDTH)
+             68 BINARY_MULTIPLY
+             70 CALL_FUNCTION            3
+             72 GET_ITER
+        >>   74 FOR_ITER                42 (to 118)
+             76 STORE_FAST               8 (y)
+
+ 47          78 LOAD_FAST                5 (r)
+             80 LOAD_FAST                0 (self)
+             82 LOAD_ATTR                4 (screen)
+             84 LOAD_FAST                8 (y)
+             86 STORE_SUBSCR
+
+ 48          88 LOAD_FAST                6 (g)
+             90 LOAD_FAST                0 (self)
+             92 LOAD_ATTR                4 (screen)
+             94 LOAD_FAST                8 (y)
+             96 LOAD_CONST               3 (1)
+             98 BINARY_ADD
+            100 STORE_SUBSCR
+
+ 49         102 LOAD_FAST                7 (b)
+            104 LOAD_FAST                0 (self)
+            106 LOAD_ATTR                4 (screen)
+            108 LOAD_FAST                8 (y)
+            110 LOAD_CONST               4 (2)
+            112 BINARY_ADD
+            114 STORE_SUBSCR
+            116 JUMP_ABSOLUTE           74
+        >>  118 POP_BLOCK
+        >>  120 LOAD_CONST               0 (None)
+            122 RETURN_VALUE
+None

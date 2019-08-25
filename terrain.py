@@ -40,11 +40,13 @@ class Terrain:
     def draw_vline(self, x, y1, y2, color):
         r, g, b = color
         y1 = max(int(y1), 0)
-        for y in range(y1, int(y2)):
-            offs = 3 * (y * SCREEN_WIDTH + x)
-            self.screen[offs] = r
-            self.screen[offs + 1] = g
-            self.screen[offs + 2] = b
+        y1 = 3 * (y1 * SCREEN_WIDTH + x)
+        y2 = 3 * (y2 * SCREEN_WIDTH + x)
+        screen = self.screen
+        for y in range(y1, y2, 3 * SCREEN_WIDTH):
+            screen[y] = r
+            screen[y + 1] = g
+            screen[y + 2] = b
 
     def render(self):
         ybuffer = self.ybuffer[:]
@@ -60,7 +62,7 @@ class Terrain:
             offs_y = 1024 * (int(left_y) % 1024)
             for i in range(SCREEN_WIDTH):
                 offs = offs_y + int(left_x) % 1024
-                h = self.heights[offs] * scale + self.horizon
+                h = int(self.heights[offs] * scale) + self.horizon
                 if h < ybuffer[i]:
                     self.draw_vline(i, h, ybuffer[i], self.colors[offs])
                     ybuffer[i] = h
