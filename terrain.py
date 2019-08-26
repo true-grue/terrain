@@ -34,7 +34,7 @@ def draw_vline(screen, x, y1, y2, color):
 
 
 class Terrain:
-    def __init__(self):
+    def __init__(self, widget):
         self.player_x = 0
         self.player_y = 0
         self.height = 70
@@ -46,12 +46,13 @@ class Terrain:
         self.background = bytearray(BACK_COLOR * SCREEN_WIDTH * SCREEN_HEIGHT)
         self.screen = self.background[:]
         self.ybuffer = [SCREEN_HEIGHT for i in range(SCREEN_WIDTH)]
+        self.widget = label
 
     def render(self):
         ybuf = self.ybuffer[:]
         z = 1
         dz = 1
-        while int(z) < self.distance:
+        while z < self.distance:
             left_x = self.player_x - z
             left_y = self.player_y + z
             right_x = self.player_x + z
@@ -75,14 +76,14 @@ class Terrain:
         self.player_y += 8
         data = to_ppm(self.screen, SCREEN_WIDTH, SCREEN_HEIGHT)
         image = tk.PhotoImage(data=data).zoom(2, 2)
-        label.config(image=image)
-        label.image = image
-        root.after(10, self.update_screen)
+        self.widget.config(image=image)
+        self.widget.image = image
+        Root.after(10, self.update_screen)
 
 
-root = tk.Tk()
+Root = tk.Tk()
 label = tk.Label()
 label.pack()
-terrain = Terrain()
-root.after(0, terrain.update_screen)
+terrain = Terrain(label)
+Root.after(0, terrain.update_screen)
 tk.mainloop()
