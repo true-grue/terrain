@@ -46,7 +46,7 @@ class Terrain:
         self.background = bytearray(BACK_COLOR * SCREEN_WIDTH * SCREEN_HEIGHT)
         self.screen = self.background[:]
         self.ybuffer = [SCREEN_HEIGHT for i in range(SCREEN_WIDTH)]
-        self.widget = label
+        self.widget = widget
 
     def render(self):
         ybuf = self.ybuffer[:]
